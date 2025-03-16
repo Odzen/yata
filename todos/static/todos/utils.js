@@ -16,13 +16,9 @@ window.onload = function () {
         childList: true,
     };
 
-    const observer = new MutationObserver(showOrHideEmptyMessage);s
+    const observer = new MutationObserver(showOrHideEmptyMessage);
 
     observer.observe(targetNode, config);
-};
 
-document.addEventListener("htmx:afterRequest", function(event) {
-    if (event.detail.verb === "post") {
-        document.getElementById("create-form").reset();
-    }
-});
+    showOrHideEmptyMessage();
+};
