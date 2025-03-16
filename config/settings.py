@@ -35,6 +35,8 @@ INSTALLED_APPS = [
     'todos',
     # external
     "django_browser_reload",
+    "crispy_forms",
+    "crispy_tailwind",
     # default apps
     'django.contrib.admin',
     'django.contrib.auth',
@@ -129,3 +131,8 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# CRISPY
+CRISPY_ALLOWED_TEMPLATE_PACKS = "tailwind"
+
+CRISPY_TEMPLATE_PACK = "tailwind"

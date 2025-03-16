@@ -1,20 +1,59 @@
+{% load static %}
+{% load tailwind_filters %}
+
+
 <html lang="en">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Things To Do</title>
 
+        <script src="{% static 'todos/utils.js' %}"></script>
+
         <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+        <script src="https://unpkg.com/htmx.org@1.9.11"
+        integrity="sha384-0gxUXCCR8yv9FM2b+U3FDbsKthCI66oH5IA9fHppQq9DDMHuMauqq1ZHBpJxQ0J0"
+        crossorigin="anonymous"></script>
     </head>
 
     <body>
         <div class="mx-auto max-w-7xl sm:px-6 lg:px-8 space-y-4 pt-4">
 
-            <h1 class="text-2xl font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight">Things to do
+            <h1 class="text-2xl font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight">
+                Things to do
             </h1>
 
-            <div class="text-center text-2xl font-bold opacity-30 pt-6">
+            <div id="todo_items_empty" class="text-center text-2xl font-bold opacity-30 pt-6">
                 Nothing to see here...
+            </div>
+
+            <div id="todo_items"></div>
+
+            <div class="absolute inset-x-0 bottom-2 flex justify-center">
+                <div class="flex flex-col gap-3">
+                    <h2 class="text-xl font-bold leading-7 text-gray-800 sm:truncate sm:text-2xl sm:tracking-tight text-center">Add Item</h2>
+                    
+                    <form hx-post="{% url 'action_add_new_todo' %}" hx-target="#todo_items" hx-swap="afterbegin" hx-on::after-request="this.reset()" class="flex flex-col gap-4">
+                        {% csrf_token %}
+                        <!-- <div class="flex items-center gap-2">
+                            <label for="title">
+                                Title
+                            </label>
+                            {{form.title}}
+                        </div>
+
+                        <div class="flex items-center gap-2">
+                            <label for="description">
+                                Description
+                            </label>
+                            {{form.description}}
+                        </div> -->
+
+                        {{ form|crispy }}
+                        
+                        <input type="submit" value="Add" class="cursor-pointer rounded-sm bg-blue-600 px-2 py-1 text-xs font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600">
+                    </form>
+                </div>
             </div>
     
         </div>
